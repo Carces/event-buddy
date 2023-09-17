@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { View, Text, Alert, TextInput, TouchableHighlight } from 'react-native';
+import { MenuShownContext } from '../context/MenuShownContext';
 
 import { useNavigation } from '@react-navigation/native';
 import { cognitoPool } from '../cognito/cognito-pool';
@@ -11,13 +12,14 @@ function Confirm({ route }) {
   const [confirmationCode, setConfirmationCode] = useState();
   const [confirmed, setConfirmed] = useState(false);
   const { newAccountEmail } = route.params;
+  const { setMenuShown } = useContext(MenuShownContext);
 
   function goToLogIn() {
     navigation.navigate('LogIn');
   }
 
   function confirmEmail() {
-    if (!email || !confirmationCode) {
+    if (!newAccountEmail || !confirmationCode) {
       return Alert.alert('Error', 'Please fill out all fields');
     }
 
