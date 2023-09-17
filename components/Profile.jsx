@@ -21,7 +21,7 @@ import { useNavigation } from '@react-navigation/native';
 const Profile = ({ usernameForProfile }) => {
   const { currentUser } = useContext(CurrentUserContext);
   const { menuShown, setMenuShown } = useContext(MenuShownContext);
-  usernameToDisplay = usernameForProfile || currentUser;
+  usernameToDisplay = usernameForProfile || currentUser.username;
   const navigation = useNavigation();
   const [newUserTag, setNewUserTag] = useState('');
   const [currentUserName, setCurrentUserName] = useState('');
@@ -55,6 +55,7 @@ const Profile = ({ usernameForProfile }) => {
   if (!usernameForProfile && isCurrentUserProfile)
     usernameForProfile = currentUser.username;
 
+  console.log(usernameToDisplay, ',<<< uname to display from Profile');
   useEffect(() => {
     setIsLoading(true);
     if (!currentUser && !usernameForProfile)
@@ -63,10 +64,18 @@ const Profile = ({ usernameForProfile }) => {
       const {
         Item: { name, age, gender, interests },
       } = fetchedProfile;
+      console.log(fetchedProfile, '<<< fetchedProfile');
       const nameValue = name ? name.S : null;
       const ageValue = age ? age.N : null;
       const genderValue = gender ? gender.S : null;
       const interestsValue = interests ? interests.S.split(',') : null;
+      console.log(
+        nameValue,
+        ageValue,
+        genderValue,
+        interestsValue,
+        '<<< profile values from fetchedProfile'
+      );
       if (name) setCurrentUserName(nameValue);
       if (age) setCurrentUserAge(ageValue);
       if (gender) setCurrentUserGender(genderValue);

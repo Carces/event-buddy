@@ -5,6 +5,7 @@ import { emailRegex } from '../cognito/regex';
 import { cognitoPool } from '../cognito/cognito-pool';
 import styles from '../styles';
 import { MenuShownContext } from '../context/MenuShownContext';
+import { postUserProfile } from '../api/postUserProfile';
 
 function Registration() {
   const navigation = useNavigation();
@@ -58,6 +59,11 @@ function Registration() {
             default:
               return Alert.alert('Error', 'Something went wrong');
           }
+        }
+        try {
+          postUserProfile(username);
+        } catch (error) {
+          console.log('Error calling postUserProfile Lambda function: ', error);
         }
         navigation.navigate('Confirm', { newAccountEmail: email });
       }

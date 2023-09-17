@@ -6,6 +6,7 @@ import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 import styles from '../styles';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import { MenuShownContext } from '../context/MenuShownContext';
+import { postUserProfile } from '../api/postUserProfile';
 
 function LogIn() {
   const navigation = useNavigation();
