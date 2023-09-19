@@ -5,7 +5,7 @@ import { MenuShownContext } from '../context/MenuShownContext';
 import { useNavigation } from '@react-navigation/native';
 import { cognitoPool } from '../cognito/cognito-pool';
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import styles from '../styles';
+import styles from '../utils/styles';
 
 function Confirm({ route }) {
   const navigation = useNavigation();
@@ -47,21 +47,21 @@ function Confirm({ route }) {
   }
 
   return (
-    <View style={styles.Auth_View}>
+    <View style={styles.Auth__View}>
       {confirmed ? (
         <>
-          <Text style={styles.Auth_Header}>{'Email address confirmed'}</Text>
-          <TouchableHighlight style={styles.Auth_Button} onPress={goToLogIn}>
-            <Text style={styles.Auth_ButtonText}>Log in</Text>
+          <Text style={styles.Auth__header}>{'Email address confirmed'}</Text>
+          <TouchableHighlight style={styles.Auth__Button} onPress={goToLogIn}>
+            <Text style={styles.Auth__ButtonText}>Log in</Text>
           </TouchableHighlight>
         </>
       ) : (
         <>
-          <Text style={styles.Auth_Header}>
+          <Text style={styles.Auth__header}>
             {'Enter the confirmation code sent to ' + newAccountEmail}
           </Text>
           <TextInput
-            style={styles.Auth_Input}
+            style={styles.Auth__Input}
             value={confirmationCode}
             placeholder="Enter confirmation code..."
             onFocus={() => setMenuShown(false)}
@@ -69,8 +69,11 @@ function Confirm({ route }) {
               setConfirmationCode(confirmationCodeInput);
             }}
           ></TextInput>
-          <TouchableHighlight style={styles.Auth_Button} onPress={confirmEmail}>
-            <Text style={styles.Auth_ButtonText}>Confirm</Text>
+          <TouchableHighlight
+            style={styles.Auth__Button}
+            onPress={confirmEmail}
+          >
+            <Text style={styles.Auth__ButtonText}>Confirm</Text>
           </TouchableHighlight>
         </>
       )}
